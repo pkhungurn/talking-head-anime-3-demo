@@ -224,7 +224,6 @@ You can also used the following BibTex entry:
 }
 ```
 
-
 ## Disclaimer
 
 While the author is an employee of Google Japan, this software is not Google's product and is not supported by Google.
