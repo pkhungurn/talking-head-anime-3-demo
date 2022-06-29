@@ -206,12 +206,30 @@ In order for the system to work well, the input image must obey the following co
 
 See the project's [write-up](http://pkhungurn.github.io/talking-head-anime-3/full.html#sec:problem-spec) for more details on the input image.
 
+## Citation
+
+If your academic work benefits from the code in this repository, please cite the project's web page as follows:
+
+> Pramook Khungurn. **Talking Head(?) Anime from a Single Image: Now the Body Too.** http://pkhungurn.github.io/talking-head-anime-3/, 2022. Accessed: YYYY-MM-DD.
+
+You can also used the following BibTex entry:
+
+```
+@misc{Khungurn:2022,
+    author = {Pramook Khungurn},
+    title = {Talking Head(?) Anime from a Single Image: Now the Body Too},
+    howpublished = {\url{http://pkhungurn.github.io/talking-head-anime-3/}},
+    year = 2022,
+    note = {Accessed: YYYY-MM-DD},
+}
+```
+
+
 ## Disclaimer
 
 While the author is an employee of Google Japan, this software is not Google's product and is not supported by Google.
 
-The copyright of this software belongs to me as I have requested it using the 
-[IARC process](https://opensource.google/docs/iarc/). However, Google might claim the rights to the intellectual
+The copyright of this software belongs to me as I have requested it using the [IARC process](https://opensource.google/docs/iarc/). However, Google might claim the rights to the intellectual
 property of this invention.
 
 The code is released under the [MIT license](https://github.com/pkhungurn/talking-head-anime-2-demo/blob/master/LICENSE).
