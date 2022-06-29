@@ -223,7 +223,7 @@ class MainFrame(wx.Frame):
         capture_device_ip_text = wx.StaticText(self.connection_panel, label="Capture Device IP:", style=wx.ALIGN_RIGHT)
         self.connection_panel_sizer.Add(capture_device_ip_text, wx.SizerFlags(0).FixedMinSize().Border(wx.ALL, 3))
 
-        self.capture_device_ip_text_ctrl = wx.TextCtrl(self.connection_panel, value="192.168.0.134")
+        self.capture_device_ip_text_ctrl = wx.TextCtrl(self.connection_panel, value="192.168.0.1")
         self.connection_panel_sizer.Add(self.capture_device_ip_text_ctrl, wx.SizerFlags(1).Expand().Border(wx.ALL, 3))
 
         self.start_capture_button = wx.Button(self.connection_panel, label="START CAPTURE!")
