@@ -5,6 +5,10 @@ This repository contains demo programs for the [Talking Head(?) Anime from a Sin
 * The ``manual_poser`` lets you manipulate a character's facial expression, head rotation, body rotation, and chest expansion due to breathing through a graphical user interface. 
 * ``ifiacialmocap_puppeteer`` lets you transfer your facial motion to an anime character.
 
+## Try the Manual Poser on Google Colab
+
+If you do not have the required hardware (discussed below) or do not want to download the code and set up an environment to run it, click [![this link](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/pkhungurn/talking-head-anime-3-demo/blob/master/colab.ipynb) to try running the manual poser on [Google Colab](https://research.google.com/colaboratory/faq.html).
+
 ## Hardware Requirements
 
 Both programs require a recent and powerful Nvidia GPU to run. I could personally ran them at good speed with the Nvidia Titan RTX. However, I think recent high-end gaming GPUs such as the RTX 2080, the RTX 3080, or better would do just as well.
@@ -226,7 +230,7 @@ You can also used the following BibTex entry:
 
 ## Disclaimer
 
-While the author is an employee of Google Japan, this software is not Google's product and is not supported by Google.
+While the author is an employee of [Google Japan](https://careers.google.com/locations/tokyo/), this software is not Google's product and is not supported by Google.
 
 The copyright of this software belongs to me as I have requested it using the [IARC process](https://opensource.google/documentation/reference/releasing#iarc). However, Google might claim the rights to the intellectual
 property of this invention.
