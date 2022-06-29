@@ -1,4 +1,4 @@
-# Demo Code for Talking Head(?) Anime from A Single Image 3: Now the Body Too
+# Demo Code for "Talking Head(?) Anime from A Single Image 3: Now the Body Too"
 
 This repository contains demo programs for the [Talking Head(?) Anime from a Single Image 3: Now the Body Too](https://pkhungurn.github.io/talking-head-anime-3/index.html) project. As the name implies, the project allows you to animate anime characters, and you only need a single image of that character to do so. There are two demo programs:
 
@@ -210,14 +210,14 @@ See the project's [write-up](http://pkhungurn.github.io/talking-head-anime-3/ful
 
 If your academic work benefits from the code in this repository, please cite the project's web page as follows:
 
-> Pramook Khungurn. **Talking Head(?) Anime from a Single Image: Now the Body Too.** http://pkhungurn.github.io/talking-head-anime-3/, 2022. Accessed: YYYY-MM-DD.
+> Pramook Khungurn. **Talking Head(?) Anime from a Single Image 3: Now the Body Too.** http://pkhungurn.github.io/talking-head-anime-3/, 2022. Accessed: YYYY-MM-DD.
 
 You can also used the following BibTex entry:
 
 ```
 @misc{Khungurn:2022,
     author = {Pramook Khungurn},
-    title = {Talking Head(?) Anime from a Single Image: Now the Body Too},
+    title = {Talking Head(?) Anime from a Single Image 3: Now the Body Too},
     howpublished = {\url{http://pkhungurn.github.io/talking-head-anime-3/}},
     year = 2022,
     note = {Accessed: YYYY-MM-DD},
