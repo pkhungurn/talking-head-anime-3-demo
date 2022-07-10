@@ -144,6 +144,13 @@ def extract_numpy_image_from_PIL_image_with_pytorch_layout(pil_image, has_alpha=
         num_channel = 3
     image_size = pil_image.width
 
+    # search for transparent pixels(alpha==0) and change them to [0 0 0 0] to avoid the color influence to the model
+    for i, px in enumerate(pil_image.getdata()):
+        if px[3] <= 0:
+            y = i // image_size
+            x = i % image_size
+            pil_image.putpixel((x, y), (0, 0, 0, 0))
+
     raw_image = numpy.asarray(pil_image)
     image = (raw_image / 255.0).reshape(image_size, image_size, num_channel)
     image[:, :, 0:3] = numpy_srgb_to_linear(image[:, :, 0:3])
