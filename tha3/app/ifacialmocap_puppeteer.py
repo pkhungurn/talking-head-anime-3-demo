@@ -9,7 +9,8 @@ from typing import Optional
 sys.path.append(os.getcwd())
 
 from tha3.mocap.ifacialmocap_pose import create_default_ifacialmocap_pose
-from tha3.mocap.ifacialmocap_v2 import IFACIALMOCAP_PORT, IFACIALMOCAP_START_STRING, parse_ifacialmocap_v2_pose
+from tha3.mocap.ifacialmocap_v2 import IFACIALMOCAP_PORT, IFACIALMOCAP_START_STRING, parse_ifacialmocap_v2_pose, \
+    parse_ifacialmocap_v1_pose
 from tha3.poser.modes.load_poser import load_poser
 
 import torch
