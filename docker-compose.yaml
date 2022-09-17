@@ -1,0 +1,29 @@
+version: '3'
+services:
+  tha3-streamlist-app:
+    image: tha3-st
+    build:
+      context: ${DIR}
+      dockerfile: ${DIR}/Dockerfile
+    ports:
+      - 8501:8501
+    volumes:
+      - ${DIR}/tha3:/opt/app/tha3
+      - ${DIR}/pyproject.toml:/opt/app/pyproject.toml
+      - ${DIR}/poetry.lock:/opt/app/poetry.lock
+      - ${DIR}/data:/opt/app/data
+    command: "poetry run streamlit run tha3/app/manual_poser_st.py"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    environment: 
+      - PYTHONPATH=/opt/app/
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=all
+      - CUDA_LAUNCH_BLOCKING=1
+      - PYTORCH_CUDA_ALLOC_CONF=garbage_collection_threshold:0.6,max_split_size_mb:128
+

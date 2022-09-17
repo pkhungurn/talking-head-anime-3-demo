@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "talking-head-anime-3-demo"
+version = "0.1.0"
+description = ""
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+packages = [{include = "talking_head_anime_3_demo"}]
+
+[tool.poetry.dependencies]
+python = "^3.10, <3.11"
+torch = {version="=1.12.0+cu116", source="torch"}
+torchvision = {version="=0.13.0+cu116", source="torch"}
+scipy = "^1.9.1"
+streamlit = "^1.12.2"
+matplotlib = "^3.6.0"
+
+[[tool.poetry.source]]
+name = "torch"
+url = "https://download.pytorch.org/whl/cu116"
+secondary = true
+default = false
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
