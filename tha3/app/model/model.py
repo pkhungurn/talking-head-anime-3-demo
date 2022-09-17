@@ -4,7 +4,7 @@ from tha3.poser.modes.load_poser import load_poser
 from tha3.poser.modes.pose_parameters import get_pose_parameters
 
 MODEL_NAME = "standard_float"
-DEVICE_NAME = 'cuda'
+DEVICE_NAME = "cuda"
 device = torch.device(DEVICE_NAME)
 
 poser = load_poser(MODEL_NAME, DEVICE_NAME)

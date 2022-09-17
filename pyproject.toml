@@ -13,6 +13,7 @@ torchvision = {version="=0.13.0+cu116", source="torch"}
 scipy = "^1.9.1"
 streamlit = "^1.12.2"
 matplotlib = "^3.6.0"
+Flask = "^2.2.2"
 
 [[tool.poetry.source]]
 name = "torch"
