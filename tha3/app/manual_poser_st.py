@@ -144,9 +144,9 @@ def slider_component():
             "smirk",
         ],
     )
-    right_disable = False
+    right_disable = True
     if mouth_dropdown in {"lowered_corner", "raised_corner"}:
-        right_disable = True
+        right_disable = False
 
     mouth_left = st.slider("mouth_left", 0.0, 1.0, step=0.01)
     mouth_right = st.slider("mouth_right", 0.0, 1.0, step=0.01, disabled=right_disable)

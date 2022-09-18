@@ -23,11 +23,13 @@ def numpy_linear_to_srgb(x):
     return numpy.where(x <= 0.003130804953560372, x * 12.92, 1.055 * (x ** (1.0 / 2.4)) - 0.055)
 
 
+@torch.jit.script
 def torch_srgb_to_linear(x: torch.Tensor):
     x = torch.clip(x, 0.0, 1.0)
     return torch.where(torch.le(x, 0.04045), x / 12.92, ((x + 0.055) / 1.055) ** 2.4)
 
 
+@torch.jit.script
 def torch_linear_to_srgb(x):
     x = torch.clip(x, 0.0, 1.0)
     return torch.where(torch.le(x, 0.003130804953560372), x * 12.92, 1.055 * (x ** (1.0 / 2.4)) - 0.055)
@@ -65,14 +67,24 @@ def load_rng_state(file_name):
     torch.set_rng_state(rng_state)
 
 
+@torch.jit.script
+def get_angle_image(torch_image, height, width):
+    return (
+        (
+            torch.atan2(
+                torch_image[0, :, :].view(height * width),
+                torch_image[1, :, :].view(height * width)
+            ).view(height, width) + math.pi
+        ) / (2 * math.pi)
+    )
+
+
 def grid_change_to_numpy_image(torch_image, num_channels=3):
     height = torch_image.shape[1]
     width = torch_image.shape[2]
     size_image = (torch_image[0, :, :] ** 2 + torch_image[1, :, :] ** 2).sqrt().view(height, width, 1).numpy()
     hsv = cm.get_cmap('hsv')
-    angle_image = hsv(((torch.atan2(
-        torch_image[0, :, :].view(height * width),
-        torch_image[1, :, :].view(height * width)).view(height, width) + math.pi) / (2 * math.pi)).numpy()) * 3
+    angle_image = hsv(get_angle_image(torch_image, height, width).numpy()) * 3
     numpy_image = size_image * angle_image[:, :, 0:3]
     rgb_image = numpy_linear_to_srgb(numpy_image)
     if num_channels == 3:
@@ -264,18 +276,43 @@ def extract_PIL_image_from_filelike(file):
     return PIL.Image.open(file)
 
 
+@torch.jit.script
+def transepose_from_output_image(output_image):
+    h, w, c = output_image.shape
+    return torch.transpose(output_image.reshape(h * w, c), 0, 1).reshape(c, h, w)
+
+
+@torch.jit.script
+def get_alpha_image(output_image):
+    _, h, w = output_image.shape
+    return torch.cat([output_image.repeat(3, 1, 1) * 2.0 - 1.0, torch.ones(1, h, w)], dim=0)
+
+
 def convert_output_image_from_torch_to_numpy(output_image):
     if output_image.shape[2] == 2:
-        h, w, c = output_image.shape
-        output_image = torch.transpose(output_image.reshape(h * w, c), 0, 1).reshape(c, h, w)
+        output_image = transepose_from_output_image(output_image)
     if output_image.shape[0] == 4:
         numpy_image = rgba_to_numpy_image(output_image)
     elif output_image.shape[0] == 1:
-        c, h, w = output_image.shape
-        alpha_image = torch.cat([output_image.repeat(3, 1, 1) * 2.0 - 1.0, torch.ones(1, h, w)], dim=0)
+        alpha_image = get_alpha_image(output_image)
         numpy_image = rgba_to_numpy_image(alpha_image)
     elif output_image.shape[0] == 2:
         numpy_image = grid_change_to_numpy_image(output_image, num_channels=4)
     else:
         raise RuntimeError("Unsupported # image channels: %d" % output_image.shape[0])
     return numpy_image
+
+@torch.jit.script
+def convert_linear_to_srgb(image: torch.Tensor) -> torch.Tensor:
+    rgb_image = torch_linear_to_srgb(image[0:3, :, :])
+    return torch.cat([rgb_image, image[3:4, :, :]], dim=0)
+
+
+def convert_output_image_from_torch_to_pil(output_image):
+    output_image = output_image.float()
+    output_image = convert_linear_to_srgb((output_image + 1.0) / 2.0)
+    c, h, w = output_image.shape
+    output_image = 255.0 * torch.transpose(output_image.reshape(c, h * w), 0, 1).reshape(h, w, c)
+    output_image = output_image.byte()
+    numpy_image = output_image.detach().cpu().numpy()
+    return PIL.Image.fromarray(numpy_image[:, :, 0:4], mode="RGBA")

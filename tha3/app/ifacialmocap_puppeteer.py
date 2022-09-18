@@ -322,8 +322,9 @@ class MainFrame(wx.Frame):
             return
 
         pose = torch.tensor(current_pose, device=self.device, dtype=self.poser.get_dtype())
-
-        with torch.no_grad():
+        
+        # with torch.no_grad():
+        with torch.inference_mode():
             output_image = self.poser.pose(self.torch_source_image, pose)[0].float()
             output_image = convert_linear_to_srgb((output_image + 1.0) / 2.0)
 

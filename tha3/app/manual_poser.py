@@ -383,7 +383,8 @@ class MainFrame(wx.Frame):
 
         pose = torch.tensor(current_pose, device=self.device, dtype=self.dtype)
         output_index = self.output_index_choice.GetSelection()
-        with torch.no_grad():
+        # with torch.no_grad():
+        with torch.inference_mode():
             output_image = self.poser.pose(self.torch_source_image, pose, output_index)[0].detach().cpu()
 
         numpy_image = convert_output_image_from_torch_to_numpy(output_image)
