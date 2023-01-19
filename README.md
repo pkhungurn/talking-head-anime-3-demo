@@ -198,7 +198,7 @@ Now, you can load an image of a character, and it should follow your facial move
 
 In order for the system to work well, the input image must obey the following constraints:
 
-* It should be of resolution 512 x 512. (If the demo programs receives an input image of any other size, they will resize the image to this resolution and also outptu at this resolution.)
+* It should be of resolution 512 x 512. (If the demo programs receives an input image of any other size, they will resize the image to this resolution and also output at this resolution.)
 * It must have an alpha channel.
 * It must contain only one humanoid character.
 * The character should be standing upright and facing forward.
