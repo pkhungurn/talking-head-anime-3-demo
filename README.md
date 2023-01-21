@@ -3,7 +3,7 @@
 This repository contains demo programs for the [Talking Head(?) Anime from a Single Image 3: Now the Body Too](https://pkhungurn.github.io/talking-head-anime-3/index.html) project. As the name implies, the project allows you to animate anime characters, and you only need a single image of that character to do so. There are two demo programs:
 
 * The ``manual_poser`` lets you manipulate a character's facial expression, head rotation, body rotation, and chest expansion due to breathing through a graphical user interface. 
-* ``ifiacialmocap_puppeteer`` lets you transfer your facial motion to an anime character.
+* ``ifacialmocap_puppeteer`` lets you transfer your facial motion to an anime character.
 
 ## Try the Manual Poser on Google Colab
 
@@ -198,7 +198,7 @@ Now, you can load an image of a character, and it should follow your facial move
 
 In order for the system to work well, the input image must obey the following constraints:
 
-* It should be of resolution 512 x 512. (If the demo programs receives an input image of any other size, they will resize the image to this resolution and also outptu at this resolution.)
+* It should be of resolution 512 x 512. (If the demo programs receives an input image of any other size, they will resize the image to this resolution and also output at this resolution.)
 * It must have an alpha channel.
 * It must contain only one humanoid character.
 * The character should be standing upright and facing forward.
