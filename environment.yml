@@ -139,3 +139,4 @@ dependencies:
   - zstd=1.5.2=h19a0ad4_0
   - pip:
     - wxpython==4.1.1
+    - sounddevice==0.4.6

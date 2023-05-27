@@ -5,6 +5,7 @@ import threading
 import time
 from typing import Optional
 import random
+import sounddevice as sd
 
 sys.path.append(os.getcwd())
 
@@ -13,6 +14,8 @@ from tha3.poser.modes.load_poser import load_poser
 
 import torch
 import wx
+
+import numpy as np
 
 from tha3.poser.poser import Poser
 from tha3.mocap.ifacialmocap_constants import *
@@ -24,7 +27,25 @@ from tha3.mocap.ifacialmocap_constants import BLENDSHAPE_NAMES, HEAD_BONE_X, HEA
     RIGHT_EYE_BONE_Y, RIGHT_EYE_BONE_Z, RIGHT_EYE_BONE_QUAT
 
 
+device_id = 0  # Replace this with the correct ID
+duration = int(10.0 * 1000)  # duration is now in milliseconds
+is_talking = False
 
+
+def audio_callback(indata, frames, time, status):
+    volume = np.sqrt(np.mean(indata**2))
+    print('Current volume: ', volume)
+    global is_talking
+    if volume > 0:  # Adjust this threshold value as needed
+        is_talking = True
+    else:
+        is_talking = False
+
+
+with sd.InputStream(callback=audio_callback, device=device_id):
+    print("Listening for audio...")
+    while True:
+        sd.sleep(1000)
 
 def convert_linear_to_srgb(image: torch.Tensor) -> torch.Tensor:
     rgb_image = torch_linear_to_srgb(image[0:3, :, :])
@@ -103,11 +124,15 @@ class MainFrame(wx.Frame):
         return randomized
 
     def random_generate_pose(self):
+        global is_talking
         current_pose = self.ifacialmocap_pose
         # NOTE: randomize mouth
-        # for blendshape_name in BLENDSHAPE_NAMES:
-        #     if "mouth" in blendshape_name:
-        #         current_pose[blendshape_name] = self.random_generate_value(-1000, 1000, current_pose[blendshape_name])
+        for blendshape_name in BLENDSHAPE_NAMES:
+            if "mouth" in blendshape_name:
+                if is_talking:
+                    current_pose[blendshape_name] = self.random_generate_value(-100, 100, current_pose[blendshape_name])
+                else:
+                    current_pose[blendshape_name] = 0
         for key in [HEAD_BONE_X, HEAD_BONE_Y, HEAD_BONE_Z, LEFT_EYE_BONE_X, LEFT_EYE_BONE_Y, LEFT_EYE_BONE_Z, RIGHT_EYE_BONE_X, RIGHT_EYE_BONE_Y, RIGHT_EYE_BONE_Z]:
             current_pose[key] = self.random_generate_value(-20, 20, current_pose[key])
         return current_pose
