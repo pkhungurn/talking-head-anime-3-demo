@@ -1,3 +1,24 @@
+# Talking Head Anime 3 Demo For AITuber
+
+This repository is a system adaptation of Talking Head Anime 3 Demo for AITuber.
+It possesses the following features:
+
+- Generates random Live 2D-like motion actions from a single static image.
+- Lip-syncs to the sound output from the PC (mouth movement).
+
+## How to use
+
+The audio device at index 0 is selected by default. Please align this with the audio device that outputs the AITuber's voice.
+
+```shell
+python tha3/app/ifacialmocap_puppeteer.py
+```
+
+Then, the original window is appears. Please set the image of the character you want to animate.
+
+# Original README.md
+Following is the original README.md.
+
 # Demo Code for "Talking Head(?) Anime from A Single Image 3: Now the Body Too"
 
 This repository contains demo programs for the [Talking Head(?) Anime from a Single Image 3: Now the Body Too](https://pkhungurn.github.io/talking-head-anime-3/index.html) project. As the name implies, the project allows you to animate anime characters, and you only need a single image of that character to do so. There are two demo programs:
