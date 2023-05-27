@@ -10,11 +10,36 @@ It possesses the following features:
 
 The audio device at index 0 is selected by default. Please align this with the audio device that outputs the AITuber's voice.
 
+We recommend using a virtual audio device such as [VB-CABLE](https://vb-audio.com/Cable/) to output the AITuber's voice.
+
+Firstly, please install the following packages.
+
+```shell
+pip install sounddevice
+```
+
+And then, please run the following command.
+
 ```shell
 python tha3/app/ifacialmocap_puppeteer.py
 ```
 
-Then, the original window is appears. Please set the image of the character you want to animate.
+The original window will appear. Please set the image of the character you want to animate.
+
+### Mac
+If you use Mac, replace conda environment creation command with the following command and use pythonw command alternatively.
+
+```shell
+-) conda create -n talking-head-anime-3-demo python=3.8
++) conda create -n talking-head-anime-3-demo python.app python=3.8
+```
+
+And then, it is needed to change tha3/app/random_puppet.py as follows.
+
+```shell
+-) device = torch.device('cuda')
++) device = torch.device('cpu')
+```
 
 # Original README.md
 Following is the original README.md.
