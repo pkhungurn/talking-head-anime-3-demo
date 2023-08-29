@@ -15,18 +15,8 @@ def parse_ifacialmocap_v2_pose(ifacialmocap_output):
         part = part.strip()
         if len(part) == 0:
             continue
-        if "&" in part:
-            components = part.split("&")
-            assert len(components) == 2
-            key = components[0]
-            value = float(components[1]) / 100.0
-            if key.endswith("_L"):
-                key = key[:-2] + "Left"
-            elif key.endswith("_R"):
-                key = key[:-2] + "Right"
-            if key in BLENDSHAPE_NAMES:
-                output[key] = value
-        elif part.startswith("=head#"):
+
+        if part.startswith("=head#"):
             components = part[len("=head#"):].split(",")
             assert len(components) == 6
             output[HEAD_BONE_X] = float(components[0]) * math.pi / 180
@@ -42,6 +32,22 @@ def parse_ifacialmocap_v2_pose(ifacialmocap_output):
             output[LEFT_EYE_BONE_X] = float(components[0]) * math.pi / 180
             output[LEFT_EYE_BONE_Y] = float(components[1]) * math.pi / 180
             output[LEFT_EYE_BONE_Z] = float(components[2]) * math.pi / 180
+        else:
+            if "&" in part:
+                components = part.split("&")
+            else:
+                components = part.split("-")
+
+            assert len(components) == 2
+            key = components[0]
+            value = float(components[1]) / 100.0
+            if key.endswith("_L"):
+                key = key[:-2] + "Left"
+            elif key.endswith("_R"):
+                key = key[:-2] + "Right"
+            if key in BLENDSHAPE_NAMES:
+                output[key] = value
+
     output[HEAD_BONE_QUAT] = [0.0, 0.0, 0.0, 1.0]
     output[LEFT_EYE_BONE_QUAT] = [0.0, 0.0, 0.0, 1.0]
     output[RIGHT_EYE_BONE_QUAT] = [0.0, 0.0, 0.0, 1.0]
